@@ -1,28 +1,54 @@
 import logo from './logo.svg';
 import './App.css';
-//
+import { useState ,useEffect} from 'react';
+
+
 const employee =[{name:"asid" , id:47},{name:"basl" , id:66},{name:"ash" , id:55},{name:"mirsh" , id:36}]
 
-
 const App=()=> {
+  const [text, setText] = useState("")
+  const [array, setarray] = useState(employee)
   
-  
+
+  // const handleInput = (e) => {
+  //   setText(e.target.value);
+  // };
+  useEffect(() => {
+    if(text.length >= 3){
+      setarray(searchName(text))
+    }
+    if(text.length === 0){
+      setarray(employee)
+    }
+  }, [text])
+
+  const searchName = (queryString) => {
+    if (queryString === '') {
+      return employee;
+    }
+    const regex = new RegExp(`${queryString.trim()}`, 'i');
+    return employee.filter(
+      (array) => array.name.search(regex) >= 0
+    );
+  };
+
   return (
-    <div className="App">
-      <h1>
-        Name of employee
+    <div className="App" >
+      <ul> 
+        Name of employee  </ul>
+        <input type="text" value={text} placeholder="search" onChange={(e)=>setText(e.target.value)}></input>
         
-        </h1>
-        {employee.map((item)=>{
+        {array.map((item)=>{
           
           return(
-          <h3>{item.name}</h3>)
+          <li >{item.name}</li>)
 
         })}
-      <h1>filtered employees</h1>
-      <h1>develop branch</h1>
+       
+      <ul>filtered employees</ul>
+      
 
-      {employee.filter(item => item.name.includes('sh')).map(filteredNames => (
+      {array.filter(item => item.name.includes('sh')).map(filteredNames => (
         <li>
           {filteredNames.name}
         </li>
