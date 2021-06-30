@@ -1,18 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState ,useEffect} from 'react';
-
-
-const employee =[{name:"asid" , id:47},{name:"basl" , id:66},{name:"ash" , id:55},{name:"mirsh" , id:36}]
+import { employee } from './search';
 
 const App=()=> {
   const [text, setText] = useState("")
   const [array, setarray] = useState(employee)
   
 
-  // const handleInput = (e) => {
-  //   setText(e.target.value);
-  // };
+ 
   useEffect(() => {
     if(text.length >= 3){
       setarray(searchName(text))
@@ -45,14 +40,6 @@ const App=()=> {
 
         })}
        
-      <ul>filtered employees</ul>
-      
-
-      {array.filter(item => item.name.includes('sh')).map(filteredNames => (
-        <li>
-          {filteredNames.name}
-        </li>
-      ))}
     </div>
   );
 }
