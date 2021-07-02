@@ -1,14 +1,17 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-//import { employee } from './search';
 import axios from 'axios';
-import * as ReactBootStrap from 'react-bootstrap';
+import Loader from './Load'
+
+
+
 
 const App = () => {
   const [text, setText] = useState("")
   const [array, setarray] = useState([])
   const [responseData, setResponseData] = useState([]);
   const [loading, setloading] = useState(false)
+
 
   const fetchData = () => {
     axios({
@@ -47,6 +50,7 @@ const App = () => {
       (array =>array.name.search(regex) >= 0
     ));
   };
+  
 
 
   return (
@@ -60,8 +64,8 @@ const App = () => {
           <li >{item.name}</li>
           )
 
-      })) :(<ReactBootStrap.Spinner animation="border" variant="success"/>
-      )}
+      })) : (<Loader/>)}
+      
     
 
       {/* {responseData && JSON.stringify(responseData, null, 4)}  */}
