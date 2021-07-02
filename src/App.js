@@ -1,13 +1,14 @@
 import './App.css';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 //import { employee } from './search';
-
 import axios from 'axios';
+import * as ReactBootStrap from 'react-bootstrap';
 
 const App = () => {
   const [text, setText] = useState("")
   const [array, setarray] = useState([])
   const [responseData, setResponseData] = useState([]);
+  const [loading, setloading] = useState(false)
 
   const fetchData = () => {
     axios({
@@ -18,6 +19,7 @@ const App = () => {
       .then((response) => {
         setResponseData(response.data)
         setarray(response.data)
+        setloading(true)
       })
   }
 
@@ -52,13 +54,15 @@ const App = () => {
       <ul>Name of employee</ul>
       <input type="text" value={text} placeholder="search" onChange={(e) => setText(e.target.value)}></input>
 
-      {array && array.map((item) => {
+      {loading? (array && array.map((item) => {
 
         return (
           <li >{item.name}</li>
           )
 
-      })}
+      })) :(<ReactBootStrap.Spinner animation="border" variant="success"/>
+      )}
+    
 
       {/* {responseData && JSON.stringify(responseData, null, 4)}  */}
 
